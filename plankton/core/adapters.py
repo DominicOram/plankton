@@ -81,3 +81,16 @@ class AdapterBase(object):
         :param cycle_delay: Approximate time spent processing requests.
         """
         pass
+
+
+def is_adapter(obj):
+    """
+    Returns True if obj is an interface (derived from Adapter), but not defined in
+    :mod:`plankton.adapters`.
+
+    :param obj: Object to test.
+    :return: True if obj is an interface type.
+    """
+    return isinstance(obj, type) and issubclass(
+        obj, AdapterBase) and not obj.__module__.startswith(
+        'plankton.adapters') and obj.__module__ != 'plankton.core.adapters'

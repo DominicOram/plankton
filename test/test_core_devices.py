@@ -18,18 +18,14 @@
 # *********************************************************************
 
 import unittest
-from . import assertRaisesNothing, TestWithPackageStructure
-
-from plankton.core.devices import is_device, is_adapter, \
-    DeviceRegistry, DeviceBuilder, DeviceBase
-from plankton.core.exceptions import PlanktonException
-from plankton.devices import Device, StateMachineDevice
-from plankton.core.adapters import AdapterBase
-from plankton.adapters.stream import StreamAdapter
-
+from types import ModuleType
 from uuid import uuid4
 
-from types import ModuleType
+from plankton.core.adapters import AdapterBase
+from plankton.core.devices import is_device, DeviceRegistry, DeviceBuilder, DeviceBase
+from plankton.core.exceptions import PlanktonException
+from plankton.devices import Device, StateMachineDevice
+from . import assertRaisesNothing, TestWithPackageStructure
 
 
 class TestIsDevice(unittest.TestCase):
@@ -55,26 +51,6 @@ class TestIsDevice(unittest.TestCase):
 
         self.assertTrue(is_device(DummyDevice))
         self.assertTrue(is_device(DummyStatemachineDevice))
-
-
-class TestIsAdapter(unittest.TestCase):
-    def test_not_a_type_returns_false(self):
-        self.assertFalse(is_adapter(0.0))
-        self.assertFalse(is_adapter(None))
-
-    def test_arbitrary_types_fail(self):
-        self.assertFalse(is_adapter(type(3.0)))
-        self.assertFalse(is_adapter(DeviceBuilder))
-
-    def test_adapter_base_is_ignored(self):
-        self.assertFalse(is_adapter(AdapterBase))
-        self.assertFalse(is_adapter(StreamAdapter))
-
-    def test_adapter_types_work(self):
-        class DummyAdapter(AdapterBase):
-            pass
-
-        self.assertTrue(is_adapter(DummyAdapter))
 
 
 class TestDeviceBuilderSimpleModule(unittest.TestCase):
