@@ -24,7 +24,7 @@ from plankton.core.devices import is_device, is_adapter, \
     DeviceRegistry, DeviceBuilder, DeviceBase
 from plankton.core.exceptions import PlanktonException
 from plankton.devices import Device, StateMachineDevice
-from plankton.adapters import Adapter
+from plankton.adapters import AdapterBase
 from plankton.adapters.stream import StreamAdapter
 
 from uuid import uuid4
@@ -67,11 +67,11 @@ class TestIsAdapter(unittest.TestCase):
         self.assertFalse(is_adapter(DeviceBuilder))
 
     def test_adapter_base_is_ignored(self):
-        self.assertFalse(is_adapter(Adapter))
+        self.assertFalse(is_adapter(AdapterBase))
         self.assertFalse(is_adapter(StreamAdapter))
 
     def test_adapter_types_work(self):
-        class DummyAdapter(Adapter):
+        class DummyAdapter(AdapterBase):
             pass
 
         self.assertTrue(is_adapter(DummyAdapter))
@@ -83,7 +83,7 @@ class TestDeviceBuilderSimpleModule(unittest.TestCase):
         class DummyDevice(Device):
             pass
 
-        class DummyAdapter(Adapter):
+        class DummyAdapter(AdapterBase):
             protocol = 'dummy'
 
         cls.module = ModuleType('simple_dummy_module')
@@ -141,10 +141,10 @@ class TestDeviceBuilderMultipleDevicesAndProtocols(unittest.TestCase):
         class OtherDummyDevice(Device):
             pass
 
-        class DummyAdapter(Adapter):
+        class DummyAdapter(AdapterBase):
             protocol = 'dummy'
 
-        class OtherDummyAdapter(Adapter):
+        class OtherDummyAdapter(AdapterBase):
             protocol = 'other_dummy'
 
         cls.module = ModuleType('multiple_devices_dummy_module')
@@ -190,10 +190,10 @@ class TestDeviceBuilderComplexModule(unittest.TestCase):
         class OtherDummyDevice(Device):
             pass
 
-        class DummyAdapter(Adapter):
+        class DummyAdapter(AdapterBase):
             protocol = 'dummy'
 
-        class OtherDummyAdapter(Adapter):
+        class OtherDummyAdapter(AdapterBase):
             protocol = 'other_dummy'
 
         cls.module = ModuleType('complex_dummy_module')
@@ -235,10 +235,10 @@ class TestDeviceBuilderComplexModule(unittest.TestCase):
 class TestDeviceBuilderWithDuplicateProtocols(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        class DummyAdapter(Adapter):
+        class DummyAdapter(AdapterBase):
             protocol = 'dummy'
 
-        class DummyAdapterTwo(Adapter):
+        class DummyAdapterTwo(AdapterBase):
             protocol = 'dummy'
 
         cls.module = ModuleType('simple_dummy_module')

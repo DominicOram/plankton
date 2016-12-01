@@ -23,7 +23,7 @@ from argparse import ArgumentParser
 from datetime import datetime
 import inspect
 
-from . import Adapter, ForwardProperty
+from . import AdapterBase, ForwardProperty
 from six import iteritems
 
 from plankton.core.utils import seconds_since, FromOptionalDependency, format_doc_text
@@ -105,7 +105,7 @@ class PropertyExposingDriver(Driver):
         self.updatePVs()
 
 
-class EpicsAdapter(Adapter):
+class EpicsAdapter(AdapterBase):
     """
     Inheriting from this class provides an EPICS-interface to a device, powered by
     the pcaspy-module. In the simplest case all that is required is to inherit

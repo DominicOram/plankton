@@ -28,7 +28,7 @@ from argparse import ArgumentParser
 
 from six import b
 
-from plankton.adapters import Adapter, ForwardMethod
+from plankton.adapters import AdapterBase, ForwardMethod
 from plankton.core.utils import format_doc_text
 
 
@@ -142,7 +142,7 @@ class Cmd(object):
         return [f(a) for f, a in zip(self.argument_mappings, arguments)]
 
 
-class StreamAdapter(Adapter):
+class StreamAdapter(AdapterBase):
     """
     This class is used to provide a TCP-stream based interface to a device.
 

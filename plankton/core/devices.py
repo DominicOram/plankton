@@ -26,7 +26,7 @@ produces factory-like objects that create device instances and interface types b
 
 import importlib
 
-from plankton.adapters import Adapter
+from plankton.adapters import AdapterBase
 from plankton.core.exceptions import PlanktonException
 from plankton.core.utils import get_submodules, get_members
 
@@ -60,7 +60,7 @@ def is_adapter(obj):
     :return: True if obj is an interface type.
     """
     return isinstance(obj, type) and issubclass(
-        obj, Adapter) and not obj.__module__.startswith('plankton.adapters')
+        obj, AdapterBase) and not obj.__module__.startswith('plankton.adapters')
 
 
 class DeviceBuilder(object):

@@ -24,7 +24,7 @@ This module defines a base class for adapters and some supporting infrastructure
 import inspect
 
 
-class Adapter(object):
+class AdapterBase(object):
     """
     Base class for adapters
 
@@ -50,7 +50,7 @@ class Adapter(object):
     protocol = None
 
     def __init__(self, device, arguments=None):
-        super(Adapter, self).__init__()
+        super(AdapterBase, self).__init__()
         self._device = device
 
     @property
