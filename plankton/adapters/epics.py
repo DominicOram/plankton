@@ -23,10 +23,11 @@ from argparse import ArgumentParser
 from datetime import datetime
 import inspect
 
-from . import AdapterBase, ForwardProperty
+from plankton.core.adapters import AdapterBase
 from six import iteritems
 
-from plankton.core.utils import seconds_since, FromOptionalDependency, format_doc_text
+from plankton.core.utils import seconds_since, FromOptionalDependency, \
+    format_doc_text, ForwardProperty
 from plankton.core.exceptions import PlanktonException
 
 # pcaspy might not be available. To make EPICS-based adapters show up
@@ -63,6 +64,7 @@ class PV(object):
     :param doc: Description of the PV. If not supplied, docstring of mapped property is used.
     :param kwargs: Arguments forwarded into pcaspy pvdb-dict.
     """
+
     def __init__(self, target_property, poll_interval=1.0, read_only=False, doc=None, **kwargs):
         self.property = target_property
         self.read_only = read_only

@@ -24,7 +24,7 @@ from plankton.core.devices import is_device, is_adapter, \
     DeviceRegistry, DeviceBuilder, DeviceBase
 from plankton.core.exceptions import PlanktonException
 from plankton.devices import Device, StateMachineDevice
-from plankton.adapters import AdapterBase
+from plankton.core.adapters import AdapterBase
 from plankton.adapters.stream import StreamAdapter
 
 from uuid import uuid4

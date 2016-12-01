@@ -28,8 +28,8 @@ from argparse import ArgumentParser
 
 from six import b
 
-from plankton.adapters import AdapterBase, ForwardMethod
-from plankton.core.utils import format_doc_text
+from plankton.core.adapters import AdapterBase
+from plankton.core.utils import format_doc_text, ForwardMethod
 
 
 class StreamHandler(asynchat.async_chat):
