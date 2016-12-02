@@ -168,15 +168,12 @@ class EpicsAdapter(AdapterBase):
     :param arguments: Command line arguments to parse.
     """
     protocol = 'epics'
-    pvs = None
 
-    def __init__(self, device, arguments=None):
-        super(EpicsAdapter, self).__init__(device, arguments)
+    def __init__(self, interface, arguments=None):
+        super(EpicsAdapter, self).__init__(interface, arguments)
 
         if arguments is not None:
             self._options = self._parseArguments(arguments)
-
-        self._create_properties(self.pvs.values())
 
         self._server = None
         self._driver = None
@@ -214,15 +211,7 @@ class EpicsAdapter(AdapterBase):
 
         self._last_update = datetime.now()
 
-    def _create_properties(self, pvs):
-        for pv in pvs:
-            prop = pv.property
 
-            if prop not in dir(self):
-                if prop not in dir(self._device):
-                    raise AttributeError('Can not find property \''
-                                         + prop + '\' in device or interface.')
-                setattr(type(self), prop, ForwardProperty('_device', prop, instance=self))
 
     def _parseArguments(self, arguments):
         parser = ArgumentParser(description="Adapter to expose a device via EPICS")

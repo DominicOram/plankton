@@ -24,8 +24,13 @@ context of object oriented programming. In this context it describes the set of 
 that are available for interacting with a hardware device.
 """
 
+import inspect
+
 
 class InterfaceBase(object):
+    def __init__(self, device):
+        self._device = device
+
     @property
     def adapter(self):
         raise NotImplementedError(
@@ -36,3 +41,14 @@ class InterfaceBase(object):
         raise NotImplementedError(
             'The protocol property must be re-implemented in each interface class.')
 
+    @property
+    def device(self):
+        return self._device
+
+    @property
+    def documentation(self):
+        """
+        This property can be overridden in a sub-class to provide protocol documentation to users
+        at runtime. By default it returns the indentation cleaned-up docstring of the class.
+        """
+        return inspect.getdoc(self) or ''

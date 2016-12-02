@@ -192,8 +192,8 @@ class StreamAdapter(AdapterBase):
 
     commands = None
 
-    def __init__(self, device, arguments=None):
-        super(StreamAdapter, self).__init__(device, arguments)
+    def __init__(self, interface, arguments=None):
+        super(StreamAdapter, self).__init__(interface, arguments)
 
         if arguments is not None:
             self._options = self._parseArguments(arguments)

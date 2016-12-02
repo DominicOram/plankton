@@ -21,8 +21,6 @@
 This module defines a base class for adapters, called :class:`AdapterBase`.
 """
 
-import inspect
-
 
 class AdapterBase(object):
     """
@@ -44,22 +42,17 @@ class AdapterBase(object):
     implementations of existing adapters (:class:`~plankton.adapters.epics.EpicsAdapter`,
     :class:`~plankton.adapters.stream.StreamAdapter`),to get some examples.
 
-    :param device: Device that is supposed to be exposed. Available as ``_device``.
     :param arguments: Command line arguments to the adapter, currently ignored.
     """
-    protocol = None
 
-    def __init__(self, device, arguments=None):
+    interfaces = []
+
+    def __init__(self, arguments=None):
         super(AdapterBase, self).__init__()
-        self._device = device
 
-    @property
-    def documentation(self):
-        """
-        This property can be overridden in a sub-class to provide protocol documentation to users
-        at runtime. By default it returns the indentation cleaned-up docstring of the class.
-        """
-        return inspect.getdoc(self) or ''
+    def add_interface(self, new_interface):
+        if new_interface.adapter == type(self):
+            self.interfaces.append(new_interface)
 
     def start_server(self):
         """
